@@ -1,0 +1,28 @@
+module palette (
+						input [3:0] 			index,
+						output logic [23:0] 	RGB
+);
+
+	always_comb
+	begin : 
+		unique case (index)
+			4'h0 		: RGB = 24'h575645;
+			4'h1 		: RGB = 24'h7a6f4d;
+			4'h2 		: RGB = 24'h665032;
+			4'h3 		: RGB = 24'h513d21;
+			4'h4 		: RGB = 24'h91885d;
+			4'h5 		: RGB = 24'ha1b2a7;
+			4'h6 		: RGB = 24'he0c981;
+			4'h7 		: RGB = 24'hb9a264;
+			4'h8 		: RGB = 24'h8c9a8b;
+			4'h9 		: RGB = 24'h6a7c76;
+			4'ha 		: RGB = 24'h5d685a;
+			4'hb 		: RGB = 24'hb6ced9;
+			4'hc 		: RGB = 24'hc5dce3;
+			4'hd 		: RGB = 24'h3f423a;
+			4'he 		: RGB = 24'h455556;
+			4'hf 		: RGB = 24'h3b2f1e;
+			default  : RGB = 24'hX;
+		endcase
+	end
+endmodule	

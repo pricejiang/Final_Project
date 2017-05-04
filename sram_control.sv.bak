@@ -1,0 +1,5 @@
+module SRAM_controller(
+								input 
+								output logic CE, UB, LB, OE, WE,
+								
+);

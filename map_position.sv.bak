@@ -1,0 +1,34 @@
+module map_position {input currentX, currentY, size_X, size_Y,
+							input motionInX, motionInY,
+							output posX, posY}
+
+always_comb
+begin
+	posX = currentX + motionInX;
+	posY = currentY + motionInY;
+	if(posX < 200 - size_X && posX > 0 + size_X )
+	begin
+		if(posY  < 100+ size_Y)
+			posY = 100 + size_Y;
+		else if(posY < 320 + size_Y	)
+			posY = 320 + size_Y; 
+	end
+	if(currentX < 200 - size_X && posX > 200 - size_X && posY < 150 + size_Y)
+		posX = 200 - size_X;
+	if(posX < 400 - size_X && posX > 200 + size_X)
+	begin
+		if(posY  < 150+ size_Y)
+			posY = 150 + size_Y;
+		else if(posY < 320 + size_Y	)
+			posY = 320 + size_Y; 
+	end
+	if(currentX < 400 - size_X && posX > 400 - size_X && posY < 200 + size_Y)
+		posX = 400 - size_X;
+	if(posX > 400 + size_X && posY  < 200+ size_Y )
+		posY = 200 + size_Y;
+end
+endmodule
+	
+			
+			
+		

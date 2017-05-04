@@ -1,0 +1,4 @@
+v1
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,SRAM_controller:SRAM0|lpm_mult:Mult0|mult_fgt:auto_generated|mac_out2,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,SRAM_controller:SRAM0|lpm_mult:Mult0|mult_fgt:auto_generated|mac_out4,
+PORT_SWAPPING,PORT_SWAP_TYPE_DSPMULT,SRAM_controller:SRAM0|lpm_mult:Mult0|mult_fgt:auto_generated|mac_mult3,
