@@ -11,7 +11,7 @@ The Final Project is largely based on the ECE385 Lab8 with additional features  
 Module: 	11_reg.sv
 
 Inputs:	Clk, Reset, Shift_In, Load, Shift_En, [10:0] D
-	Outputs: 	Shift_Out, [10:0] Data_Out
+Outputs: 	Shift_Out, [10:0] Data_Out
 	
 Description: 	This module is implemented as a 11 bit shift register. 
 
@@ -20,76 +20,124 @@ Purpose: 	This module is used by the keyboard.sv to store PS/2 keyboard input da
 Reference: 	Sai Ma, Marie Liu. 11-13-2014. For use with ECE 385 Final Project. ECE Department @ UIUC. 
 
 
+
 Module: 	Color_Mapper.sv
+
 Inputs:	Clk, [11:0] p1PosX, m1PosX, m2PosX, rPosX, [9:0] p1PosY, m1PosY, m2PosY, rPosY, [9:0]  DrawX, DrawY,  m1Alive, m2Alive, rocket_on, p1D, p1_Att, [6:0] hp_value, [4:0] score, [1:0] stage, win, [23:0] RGB_COVER, [23:0] RGB_GO, [23:0] RGB_BG 
-	Outputs: 	[7:0]  VGA_R, VGA_G, VGA_B
+Outputs: 	[7:0]  VGA_R, VGA_G, VGA_B
+	
 Description: 	This module is the Color_Mapper module that reads the PIOs’ outputs and data from SRAM. On Chip Memory module is instantiated according to PIOs’ data multiple times in this module. Then the RGB value of each image will be read from corresponding pallette modules  . The RGB value of the VGA would be determined by the proc on logic of each image.  Images include player facing left, playing facing right, frog, player attack, tank, health, rocket, “mission complete” font, and background image. 
-Purpose: 	This module outputs the VGA RGB signals for display.  
+
+Purpose: 	This module outputs the VGA RGB signals for display. 
+
 Reference: 	This module is based on Color_Mapper.sv from ECE385 Lab 8. Modification has been made. 
 
+
 Module: 	D_reg.sv
+
 Inputs:	Clk, Load, Reset, D
-	Outputs: 	Q
+Outputs: 	Q
+	
 Description: 	This module is implemented as a register. 
+
 Purpose: 	This module is used by the keyboard.sv for PS/2 clock edge detector. 
+
 Reference: 	Sai Ma, Marie Liu. 11-13-2014. For use with ECE 385 Final Project. ECE Department @ UIUC. 
 
+
 Module: 	font_rom.sv
+
 Inputs:	addr
-	Outputs: 	data
+Outputs: 	data
+	
 Description: 	This module stores the font data like a read-only memory. We can use address to read the data from it. 
+
 Purpose: 	This module outputs data that can be drawn on the VGA display. 
+
 Reference: 	Daniel Chen. ECE385 Final Project. ECE Department @ UIUC. 
 
+
 Module: 	hp.sv
+
 Inputs:	[2:0] hp
-	Outputs: 	[6:0] hp_value
+Outputs: 	[6:0] hp_value
+	
 Description: 	This module reads the hp value output from software side and outputs one-hot hp_value to determine if each hp display is on. 
+
 Purpose: 	This module outputs hp_value that can be easily interpreted by color_mapper module to display HP on display. 
 Original Work
 
+
 Module: 	keyboard.sv 
+
 Inputs:	Clk, psClk, psData, reset,
-	Outputs: 	[7:0] keyCode, press
+Outputs: 	[7:0] keyCode, press
+
 Description: 	This module reads PS/2 keyboard data and process it to output 8 bit keycode. 
+
 Purpose: 	This module outputs the keyCode that will be transferred to software side for further processing. 
+
 Reference: 	Sai Ma, Marie Liu. 11-13-2014. For use with ECE 385 Final Project. ECE Department @ UIUC. 
 
+
 Module: 	palette_*.sv
+
 Inputs:	[3:0] index
-	Outputs: 	[23:0] RGB
+Outputs: 	[23:0] RGB
+
 Description: 	These modules read the last 4 bit data from On Chip Memory or SRAM. Each palette file has a MUX that uses index as a key to output corresponding RGB value (24 bits) . 
+
 Purpose: 	All of our images are first changed to at most 16 colors and then are changed to txt files (Using the ECE385-Helper-Tool from Rishi. URL: https://github.com/Atrifex/ECE385-HelperTools ). The RGB values in the txt files are changed to hex numbers from 0-f. Each Hex value represents the RGB value in the corresponding image. These palette modules serve like lookup tables so that the Color_Mapper would retrieve the original RGB values. 
 Original Work
 
+
 Module: 	ram.sv
+
 Inputs:	[18:0] read_address, Clk
-	Outputs: 	[23:0] data_Out
+Outputs: 	[23:0] data_Out
+
 Description: 	This module initializes the On Chip Memory by reading the txt file. The on-chip memory is configured into 35032  addresses with each address stores 4 bits data.  It outputs the value from the OCM. 
+
 Purpose: 	This module sets the our image texts into OCM and output the value according to the address. 
+
 Reference: 	Rishi. ECE385-Helper-Tool. URL: https://github.com/Atrifex/ECE385-HelperTools
 
+
 Module: 	sram_controller.sv
+
 Inputs:	[9:0] DrawX, DrawY,  [11:0]	Offset, [1:0] stage
-	Outputs: 	[19:0] 	ADDR
+Outputs: 	[19:0] 	ADDR
+
 Description: 	This module inputs the drawing pixel coordinates and the two PIOs (Offset and stage) from software side. According to these variables, this module will generate the address for SRAM reading background image/ game covers. 
+
 Purpose: 	This module generates SRAM read address for specific image that should be displayed. 
 Original Work
 
+
 Module: 	tristate.sv
+
 Inputs:	Clk, [15:0] Data_read
 	Outputs: 	[15:0] Data
+	
 Description: 	This module process the data from SRAM which is a bidirectional inout type to single direction. 
-Purpose: 	This module outputs the SRAM data to Color_Mapper for VGA display.  
+
+Purpose: 	This module outputs the SRAM data to Color_Mapper for VGA display. 
+
 Reference: 	From ECE385 Lab 8. Modification has been made. 
 
+
 Module: 	VGA_controller.sv
+
 Inputs:	Clk, Reset
 	Outputs: 	VGA_HS, VGA_VS, VGA_CLK, VGA_BLANK_N, VGA_SYNC_N
 			[9:0] DrawX, DrawY
+			
 Description: 	This module generates the VGA clock and control signals. This modules loops through each horizontal line for the VGA device, and outputs sync pulse signals and  the coordinates of the current pixel.
+
 Purpose: 	This module outputs the signal to the VGA device which is PC monitor in this lab, so the monitor can display graphics. 
+
 Reference: 	From ECE385 Lab 8. 
+
 
 ## Description of C Program
 The logic of our game is computed in the software which allows us to testing our code easier (building project in software is much faster compared to compiling the project in Quartus II).  The output PIOs can be grouped into position information, and logic information. Position information includes playerPostionX, playerPostionY, monster1PostionX, monster1PositionY, monster2PositionX, monster2PositionY, rocketX, rocketY, mapOffset. Logic information includes  playerDirection, playerAttackOn, playerHealth, monster1Alive, monster2Alive,  rocketOn, Score, Stage, and Win.   
