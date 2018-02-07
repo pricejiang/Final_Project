@@ -11,6 +11,7 @@ The Final Project is largely based on the ECE385 Lab8 with additional features  
 ### Module: 	11_reg.sv
 
 Inputs:	Clk, Reset, Shift_In, Load, Shift_En, [10:0] D
+
 Outputs: 	Shift_Out, [10:0] Data_Out
 	
 Description: 	This module is implemented as a 11 bit shift register. 
@@ -24,6 +25,7 @@ Reference: 	Sai Ma, Marie Liu. 11-13-2014. For use with ECE 385 Final Project. E
 ### Module: 	Color_Mapper.sv
 
 Inputs:	Clk, [11:0] p1PosX, m1PosX, m2PosX, rPosX, [9:0] p1PosY, m1PosY, m2PosY, rPosY, [9:0]  DrawX, DrawY,  m1Alive, m2Alive, rocket_on, p1D, p1_Att, [6:0] hp_value, [4:0] score, [1:0] stage, win, [23:0] RGB_COVER, [23:0] RGB_GO, [23:0] RGB_BG 
+
 Outputs: 	[7:0]  VGA_R, VGA_G, VGA_B
 	
 Description: 	This module is the Color_Mapper module that reads the PIOs’ outputs and data from SRAM. On Chip Memory module is instantiated according to PIOs’ data multiple times in this module. Then the RGB value of each image will be read from corresponding pallette modules  . The RGB value of the VGA would be determined by the proc on logic of each image.  Images include player facing left, playing facing right, frog, player attack, tank, health, rocket, “mission complete” font, and background image. 
@@ -37,6 +39,7 @@ Reference: 	This module is based on Color_Mapper.sv from ECE385 Lab 8. Modificat
 ### Module: 	D_reg.sv
 
 Inputs:	Clk, Load, Reset, D
+
 Outputs: 	Q
 	
 Description: 	This module is implemented as a register. 
@@ -50,6 +53,7 @@ Reference: 	Sai Ma, Marie Liu. 11-13-2014. For use with ECE 385 Final Project. E
 ### Module: 	font_rom.sv
 
 Inputs:	addr
+
 Outputs: 	data
 	
 Description: 	This module stores the font data like a read-only memory. We can use address to read the data from it. 
@@ -63,6 +67,7 @@ Reference: 	Daniel Chen. ECE385 Final Project. ECE Department @ UIUC.
 ### Module: 	hp.sv
 
 Inputs:	[2:0] hp
+
 Outputs: 	[6:0] hp_value
 	
 Description: 	This module reads the hp value output from software side and outputs one-hot hp_value to determine if each hp display is on. 
@@ -75,6 +80,7 @@ Original Work
 ### Module: 	keyboard.sv 
 
 Inputs:	Clk, psClk, psData, reset,
+
 Outputs: 	[7:0] keyCode, press
 
 Description: 	This module reads PS/2 keyboard data and process it to output 8 bit keycode. 
@@ -88,6 +94,7 @@ Reference: 	Sai Ma, Marie Liu. 11-13-2014. For use with ECE 385 Final Project. E
 ### Module: 	palette_*.sv
 
 Inputs:	[3:0] index
+
 Outputs: 	[23:0] RGB
 
 Description: 	These modules read the last 4 bit data from On Chip Memory or SRAM. Each palette file has a MUX that uses index as a key to output corresponding RGB value (24 bits) . 
@@ -100,6 +107,7 @@ Original Work
 ### Module: 	ram.sv
 
 Inputs:	[18:0] read_address, Clk
+
 Outputs: 	[23:0] data_Out
 
 Description: 	This module initializes the On Chip Memory by reading the txt file. The on-chip memory is configured into 35032  addresses with each address stores 4 bits data.  It outputs the value from the OCM. 
@@ -113,6 +121,7 @@ Reference: 	Rishi. ECE385-Helper-Tool. URL: https://github.com/Atrifex/ECE385-He
 ### Module: 	sram_controller.sv
 
 Inputs:	[9:0] DrawX, DrawY,  [11:0]	Offset, [1:0] stage
+
 Outputs: 	[19:0] 	ADDR
 
 Description: 	This module inputs the drawing pixel coordinates and the two PIOs (Offset and stage) from software side. According to these variables, this module will generate the address for SRAM reading background image/ game covers. 
@@ -125,7 +134,8 @@ Original Work
 ### Module: 	tristate.sv
 
 Inputs:	Clk, [15:0] Data_read
-	Outputs: 	[15:0] Data
+	
+Outputs: 	[15:0] Data
 	
 Description: 	This module process the data from SRAM which is a bidirectional inout type to single direction. 
 
@@ -138,7 +148,8 @@ Reference: 	From ECE385 Lab 8. Modification has been made.
 ### Module: 	VGA_controller.sv
 
 Inputs:	Clk, Reset
-	Outputs: 	VGA_HS, VGA_VS, VGA_CLK, VGA_BLANK_N, VGA_SYNC_N
+	
+Outputs: 	VGA_HS, VGA_VS, VGA_CLK, VGA_BLANK_N, VGA_SYNC_N
 			[9:0] DrawX, DrawY
 			
 Description: 	This module generates the VGA clock and control signals. This modules loops through each horizontal line for the VGA device, and outputs sync pulse signals and  the coordinates of the current pixel.
