@@ -9,10 +9,14 @@ The Final Project is largely based on the ECE385 Lab8 with additional features  
 
 ## Description of System Verilog Program
 Module: 	11_reg.sv
+
 Inputs:	Clk, Reset, Shift_In, Load, Shift_En, [10:0] D
 	Outputs: 	Shift_Out, [10:0] Data_Out
+	
 Description: 	This module is implemented as a 11 bit shift register. 
+
 Purpose: 	This module is used by the keyboard.sv to store PS/2 keyboard input data. 
+
 Reference: 	Sai Ma, Marie Liu. 11-13-2014. For use with ECE 385 Final Project. ECE Department @ UIUC. 
 
 
